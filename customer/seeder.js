@@ -1,17 +1,7 @@
 const seeder = require("mongoose-seed");
 const { mongodbUri } = require("../sharedCredentials");
 
-seeder.connect(mongodbUri, () => {
-  seeder.clearModels(["Customer"]);
-  seeder.populateModels(seedData, (err, done) => {
-    if (err) {
-      console.log("Something went wrong while seeding Customer data");
-    }
-
-    seeder.disconnect();
-  });
-});
-
+module.exports.seedCustomer = () => {};
 const seedData = [
   {
     model: "Customer",
@@ -25,3 +15,17 @@ const seedData = [
     ],
   },
 ];
+
+seeder.connect(mongodbUri, () => {
+  seeder.loadModels(["./customer.model.js"]);
+  seeder.clearModels(["Customer"], () => {
+    console.log("Customer collection cleared");
+  });
+  seeder.populateModels(seedData, (err, done) => {
+    if (err) {
+      console.log("Something went wrong while seeding Customer data");
+    }
+
+    seeder.disconnect();
+  });
+});
