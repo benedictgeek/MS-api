@@ -1,5 +1,5 @@
 const mongoose = require("mongoose");
-const { mongodbUri } = require("../sharedCredentials");
+const { mongodbUri } = require("../../sharedCredentials");
 
 module.exports.connectDB = () => {
   return mongoose.connect(mongodbUri, {

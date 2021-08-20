@@ -1,18 +1,17 @@
 {
-  "name": "customer-ms",
+  "name": "product-ms",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node ./src/seeder.js && nodemon index.js"
+    "start": "node ./src/seeder.js && nodemon ./src/index.js"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
     "axios": "^0.21.1",
     "express": "^4.17.1",
-    "mongodb": "^4.1.0",
     "mongoose": "^5.13.7",
     "mongoose-seed": "^0.6.0",
     "nodemon": "^2.0.12"

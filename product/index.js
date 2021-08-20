@@ -6,14 +6,14 @@ const { connectDB } = require("./src/connectDb");
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
-const PORT = 5050;
+const PORT = 6060;
 
 connectDB()
   .then(async () => {
     app.listen(PORT, () => {
-      console.log(`Customer MS listening on ${PORT}`);
+      console.log(`Product MS listening on ${PORT}`);
     });
   })
   .catch((err) => {
-    console.log(`Problem connecting to the Customer MS`, err);
+    console.log(`Problem connecting to the Product MS`, err);
   });
