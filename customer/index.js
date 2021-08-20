@@ -1,17 +1,20 @@
 const express = require("express");
 const app = express();
 const axios = require("axios");
-const { connectDB } = require("./src/connectDb");
+const mongoose = require("mongoose");
+const { connectDB } = require("../connectDBUtil");
+const { servicePorts } = require("../sharedCredentials");
+const { createCustomerOrder } = require("./src/controller");
 
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
-const PORT = 5050;
+app.post("/customers/order", createCustomerOrder);
 
-connectDB()
+connectDB(mongoose)
   .then(async () => {
-    app.listen(PORT, () => {
-      console.log(`Customer MS listening on ${PORT}`);
+    app.listen(servicePorts.CUSTOMER, () => {
+      console.log(`Customer MS listening on ${servicePorts.CUSTOMER}`);
     });
   })
   .catch((err) => {

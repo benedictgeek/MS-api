@@ -10,10 +10,10 @@ app.use(express.json());
 
 connectDB(mongoose)
   .then(async () => {
-    app.listen(servicePorts.PRODUCT, () => {
-      console.log(`Product MS listening on ${servicePorts.PRODUCT}`);
+    app.listen(servicePorts.ORDER, () => {
+      console.log(`Order MS listening on ${servicePorts.ORDER}`);
     });
   })
   .catch((err) => {
-    console.log(`Problem connecting to the Product MS`, err);
+    console.log(`Problem connecting to the Order MS`, err);
   });
