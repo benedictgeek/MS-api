@@ -1,0 +1,26 @@
+version: "3.8"
+services:
+  customer:
+    image: customer-ms
+    ports:
+      - "5050:5050"
+    env_file:
+      - "variables.env"
+  product:
+    image: product-ms
+    ports:
+      - "6060:6060"
+    env_file:
+      - "variables.env"
+  order:
+    image: order-ms
+    ports:
+      - "7070:7070"
+    env_file:
+      - "variables.env"
+  payment:
+    image: payment-ms
+    ports:
+      - "6060:6060"
+    env_file:
+      - "variables.env"
