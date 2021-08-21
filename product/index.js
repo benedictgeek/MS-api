@@ -4,9 +4,12 @@ const axios = require("axios");
 const mongoose = require("mongoose");
 const { connectDB } = require("../connectDBUtil");
 const { servicePorts } = require("../sharedCredentials");
+const { findProduct } = require("./src/product.controller");
 
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
+
+app.get("/products/:productId", findProduct);
 
 connectDB(mongoose)
   .then(async () => {
