@@ -1,4 +1,4 @@
-version: "3.8"
+version: "3.3"
 services:
   customer:
     image: customer-ms
@@ -9,7 +9,7 @@ services:
   product:
     image: product-ms
     ports:
-      - "6060:6060"
+      - "4040:4040"
     env_file:
       - "variables.env"
   order:
@@ -18,9 +18,30 @@ services:
       - "7070:7070"
     env_file:
       - "variables.env"
+
+  rabbitmq:
+    image: rabbitmq:3.8-management-alpine
+    container_name: "rabbitmq"
+    ports:
+      - 5673:5672
+      - 15673:15672
+    volumes:
+      - ~/.docker-conf/rabbitmq/data/:/var/lib/rabbitmq/
+      - ~/.docker-conf/rabbitmq/log/:/var/log/rabbitmq
+    networks:
+      - rabbitmq_nodejs
   payment:
     image: payment-ms
     ports:
-      - "6060:6060"
+      - "9090:9090"
+    depends_on:
+      - "rabbitmq"
+    command: sh -c '/bin/wait-for-it.sh rabbitmq:5672 --timeout=30 -- npm start'
     env_file:
       - "variables.env"
+    networks:
+      - rabbitmq_nodejs
+
+networks:
+  rabbitmq_nodejs:
+    driver: bridge

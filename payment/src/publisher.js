@@ -1,10 +1,9 @@
 let q = "ms_payments";
 
 let amqplib = require("amqplib");
-const { rabbitmqurl } = require("../../sharedCredentials");
 let ch;
 
-amqplib.connect(rabbitmqurl).then(async (conn, err) => {
+amqplib.connect(process.env.rabbitmqurl).then(async (conn, err) => {
   if (err) {
     return console.warn();
   }

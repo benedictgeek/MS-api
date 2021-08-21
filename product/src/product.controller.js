@@ -1,6 +1,5 @@
 const axios = require("axios");
 const mongoose = require("mongoose");
-const { serviceUrls } = require("../../sharedCredentials");
 const { Product } = require("./product.model");
 
 module.exports.findProduct = async (req, res, next) => {

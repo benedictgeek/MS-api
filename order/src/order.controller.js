@@ -1,6 +1,5 @@
 const axios = require("axios");
 const mongoose = require("mongoose");
-const { serviceUrls } = require("../../sharedCredentials");
 const { Order } = require("./order.model");
 
 module.exports.createOrder = async (req, res, next) => {
@@ -8,7 +7,7 @@ module.exports.createOrder = async (req, res, next) => {
     let body = { ...req.body };
     let order = await Order.create({ ...body });
     //make a call to payment service (not waiting to resolve)
-    axios.post(`${serviceUrls.PAYMENT}/payments/pay`, {
+    axios.post(`${process.env.PAYMENT_URL}/payments/pay`, {
       productId: body.productId,
       customerId: body.customerId,
       orderId: order._id,

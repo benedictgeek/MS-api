@@ -1,8 +1,6 @@
 const express = require("express");
 const app = express();
 const mongoose = require("mongoose");
-const { connectDB } = require("../connectDBUtil");
-const { servicePorts } = require("../sharedCredentials");
 const { pay } = require("./src/payment.controller");
 
 app.use(express.urlencoded({ extended: true }));
@@ -13,12 +11,11 @@ require("./src/worker");
 
 app.post("/payments/pay", pay);
 
-connectDB(mongoose)
-  .then(async () => {
-    app.listen(servicePorts.PAYMENT, () => {
-      console.log(`Payment MS listening on ${servicePorts.PAYMENT}`);
-    });
-  })
-  .catch((err) => {
-    console.log(`Problem connecting to the Order MS`, err);
+mongoose.connect(process.env.mongodbUri, (err) => {
+  if (err) {
+    return console.log(`Problem connecting to the Payment MS`, err);
+  }
+  app.listen(process.env.PAYMENT_PORT, () => {
+    console.log(`Payment MS listening on ${process.env.PAYMENT_PORT}`);
   });
+});

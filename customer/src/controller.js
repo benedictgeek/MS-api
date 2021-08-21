@@ -1,6 +1,5 @@
 const axios = require("axios");
 const mongoose = require("mongoose");
-const { serviceUrls } = require("../../sharedCredentials");
 const { Customer } = require("./customer.model");
 module.exports.createCustomerOrder = async (req, res, next) => {
   try {
@@ -16,10 +15,11 @@ module.exports.createCustomerOrder = async (req, res, next) => {
     let productData;
     try {
       const productResponse = await axios.get(
-        `${serviceUrls.PRODUCT}/products/${body.productId}`
+        `${process.env.PRODUCT_URL}/products/${body.productId}`
       );
       productData = productResponse.data;
     } catch (error) {
+      // console.log("ERRORROR", error);
       throw "Product not found";
     }
 
@@ -27,7 +27,7 @@ module.exports.createCustomerOrder = async (req, res, next) => {
     let orderData;
     try {
       const orderResponse = await axios.post(
-        `${serviceUrls.ORDER}/orders/create`,
+        `${process.env.ORDER_URL}/orders/create`,
         {
           productId: mongoose.Types.ObjectId(body.productId),
           customerId: mongoose.Types.ObjectId(body.customerId),
@@ -49,7 +49,7 @@ module.exports.createCustomerOrder = async (req, res, next) => {
 
     res.send(response);
   } catch (error) {
-    console.log("NOP DIDNT", error);
+    console.log("ERROR", error);
     res.status(400).send(error);
   }
 };

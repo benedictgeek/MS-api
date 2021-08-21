@@ -1,5 +1,4 @@
 const seeder = require("mongoose-seed");
-const { mongodbUri } = require("../../sharedCredentials");
 
 const seedData = [
   {
@@ -21,7 +20,7 @@ const seedData = [
   },
 ];
 
-seeder.connect(mongodbUri, () => {
+seeder.connect(process.env.mongodbUri, () => {
   seeder.loadModels(["./src/product.model.js"]);
   seeder.clearModels(["Product"], () => {
     console.log("Product collection cleared");
