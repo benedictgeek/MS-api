@@ -1,6 +1,8 @@
 module.exports.mongodbUri =
   "mongodb+srv://sholly:shollypassed@cluster0.xijd1.mongodb.net/YVDB?retryWrites=true&w=majority";
 
+module.exports.rabbitmqurl = "amqp://localhost";
+
 let servicePorts = {
   CUSTOMER: 5050,
   PRODUCT: 6060,

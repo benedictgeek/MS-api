@@ -1,12 +1,17 @@
 const express = require("express");
 const app = express();
-const axios = require("axios");
 const mongoose = require("mongoose");
 const { connectDB } = require("../connectDBUtil");
 const { servicePorts } = require("../sharedCredentials");
+const { pay } = require("./src/payment.controller");
 
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
+
+//initialize the worker
+require("./src/worker");
+
+app.post("/payments/pay", pay);
 
 connectDB(mongoose)
   .then(async () => {
